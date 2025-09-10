@@ -101,4 +101,55 @@ SELECT codaluguel, codcliente FROM aluguel WHERE codcliente = '1';
 
 /*msotre todos os carros que não sao do modelo 'ka'*/
 SELECT modelo FROM carro WHERE modelo != 'Ka'
+/*WHERE X HAVING*/
+/*WHERE: filtra linhas individuais antes da agregação
+HAVING: filtra grupos após a agregação*/
+/*agregação= uso de funções para cálculos em um conjunto de valores
+de coluna, retornando um único valor resumido */
+
+SELECT cliente.nome, COUNT(aluguel.codaluguel) AS total_alugueis
+FROM cliente
+JOIN aluguel ON cliente.codcliente = aluguel.codcliente
+GROUP BY cliente.nome
+HAVING COUNT(aluguel.codaluguel)>2; 
+/*JOIN: agrupa tabelas
+GROUPY: agrupa os resultados por uma ou mais tabelas*/
+
+/*mostrar marcas que pessuem um carro cadastrado*/
+SELECT marca.marca, COUNT(carro.codcarro) AS total_carro
+FROM marca
+JOIN carro ON marca.codmarca = carro.codmarca
+GROUP BY marca.marca 
+HAVING COUNT(carro.codcarro) = 1;
+
+/*atividade*/
+/*conte quantos clientes existem na tabela cliente*/
+SELECT COUNT(*) AS total_cliente FROM cliente;
+
+/*liste o nome dos clientes e a quantidade total de aluguéis que cada um fez*/
+SELECT cliente.nome, COUNT(aluguel.codaluguel) AS total_aluguel
+FROM cliente 
+JOIN aluguel ON cliente.codcliente = aluguel.codcliente
+GROUP BY cliente.nome;
+
+/*mostre o gasto por cliente, considerando o valor dos carros alugados*/
+SELECT cliente.nome, SUM(carro.valor) AS total_gastos
+FROM cliente
+JOIN aluguel ON cliente.codcliente= aluguel.codcliente
+JOIN carro ON carro.codcarro= aluguel.codcarro
+GROUP BY cliente.nome
+HAVING SUM(carro.valor)>0;
+
+/*exiba a média do valor dos carros disponíveis na tabela carro*/
+SELECT MAX(valor) AS maior_valor FROM carro;
+
+/*encontre o menor e o maior valor dos carros cadastrados*/
+SELECT MAX(valor) AS maior, MIN(valor) AS menor FROM carro;
+
+/*liste as marcas que possuem mais de um carro cadastrados*/
+SELECT marca.marca, COUNT(carro.codcarro) AS quantidade_carros
+FROM marca
+JOIN carro ON marca.codmarca=carro.codmarca
+GROUP BY marca.marca
+HAVING COUNT(carro.codcarro) >1;
 
