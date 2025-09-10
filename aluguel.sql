@@ -153,3 +153,31 @@ JOIN carro ON marca.codmarca=carro.codmarca
 GROUP BY marca.marca
 HAVING COUNT(carro.codcarro) >1;
 
+/*mostre os clientes que possuem mais de dois alugueis*/
+SELECT cliente.nome, COUNT(aluguel.codaluguel) AS quantidade_aluguel
+FROM cliente
+JOIN aluguel ON cliente.codcliente=aluguel.codcliente
+GROUP BY cliente.nome
+HAVING COUNT(aluguel.codaluguel) >2;
+
+/*exiba as marcas e o valor total dos seus carros*/
+ SELECT marca.marca, SUM(carro.valor) AS soma_valor
+ FROM marca
+ JOIN carro ON marca.codmarca=carro.codmarca
+ GROUP BY marca.marca;
+ 
+ /*liste os clientes que gastaram mais de 300 reais no valor total dos aluguéis*/
+ SELECT cliente.nome, SUM(carro.valor) AS soma
+ FROM cliente
+ JOIN aluguel ON cliente.codcliente=aluguel.codcliente
+ JOIN carro ON aluguel.codcarro=carro.codcarro
+ GROUP BY cliente.nome
+ HAVING SUM(carro.valor) >300;
+ 
+ /*mostre as cidades e a quantidade de clientes que moram em cada uma 
+ exibindo apenas as cidades com mais de 1 cliente*/
+ SELECT cliente.cidade, COUNT(cliente.codcliente) AS quantidade
+ FROM cliente
+ GROUP BY cliente.cidade
+ HAVING COUNT(cliente.codcliente) >1;
+
