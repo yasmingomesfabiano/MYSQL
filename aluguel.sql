@@ -93,3 +93,12 @@ SELECT nome, cidade FROM cliente WHERE cidade = 'Duque de Caxias';
 /*exiba os códigos de aluguéis realizados no dia 2023-04-02*/
 SELECT codaluguel, data_aluguel FROM aluguel WHERE data_aluguel = '2023-04-02';
 
+/*liste os carro cujo o valor seja igual a 150*/
+SELECT modelo, valor FROM carro WHERE valor = 150;
+
+/*exiba os aluguéis feitos pelos clientes do código 1*/
+SELECT codaluguel, codcliente FROM aluguel WHERE codcliente = '1';
+
+/*msotre todos os carros que não sao do modelo 'ka'*/
+SELECT modelo FROM carro WHERE modelo != 'Ka'
+
