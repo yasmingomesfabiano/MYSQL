@@ -60,6 +60,21 @@ LEFT JOIN pedidos ON clientes.cliente_id= pedidos.cliente_id;
 
 /*right join*/
 /*listar todos os pedidos e os clientes correspondentes, incluido pedidos com cliente ausente*/
-SELECT pedidos.pedido_id, pedidos valor, clientes.cliente_id, clientes.nome AS cliente
+SELECT pedidos.pedido_id, pedidos.valor, clientes.cliente_id, clientes.nome AS cliente
 FROM clientes
-RIGHT JOIN pedidos ON clientes.cliente_id=pedidos.pedidos.clientes_id;
+RIGHT JOIN pedidos ON clientes.cliente_id=pedidos.cliente_id;
+
+/*full join*/
+/*liste todos os empregados e departamentos
+SELECT empregados.emp_id, empregados.nome AS empregado, departamentos.depto_id, departamentos.nome
+AS departamento
+FROM empregados
+FULL JOIN departamentos ON empregados.depto_id=departamentos.depto_id;*/
+
+SELECT empregados.emp_id, empregados.nome AS empregado, departamentos.depto_id, departamentos.nome AS departamento
+FROM empregados
+LEFT JOIN departamentos ON empregados.depto_id = departamentos.depto_id
+UNION
+SELECT empregados.emp_id, empregados.nome AS empregado, departamentos.depto_id, departamentos.nome AS departamento
+FROM empregados
+RIGHT JOIN departamentos ON empregados.depto_id = departamentos.depto_id
