@@ -63,4 +63,9 @@ INNER JOIN livros ON autores.id_autor=livros.autor_id
 GROUP BY autores.nome_autor;
 
 
-/**/
+/*liste autores que não tem livro*/
+SELECT autores.nome_autor AS autor, COUNT(livros.id_livro) AS quantidade
+FROM autores
+LEFT JOIN livros ON autores.id_autor=livros.autor_id
+GROUP BY autores.nome_autor
+HAVING COUNT(livros.id_livro) < 1;
